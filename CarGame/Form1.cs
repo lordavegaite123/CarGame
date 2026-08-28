@@ -254,23 +254,27 @@ namespace CarGame
 
         private void SpawnEnemy()
         {
+            SpawnInLane(rnd.Next(4), -enemyHeight);
+
             int[] pattern;
             int km = (int)(totalDistanceMeters / 1000);
 
             if (km <= 1)
                 SpawnInLane(rnd.Next(4), -enemyHeight);
-            else if (km < 3)
+            else if (km <= 3)
             {
                 pattern = trafficPatterns[rnd.Next(8)];
                 foreach (int lane in pattern)
                     SpawnInLane(lane, -enemyHeight);
             }
+
             else
             {
                 pattern = trafficPatterns[trafficPatterns.Length];
                 foreach (int lane in pattern)
                     SpawnInLane(lane, -enemyHeight);
             }
+
         }
 
         private void SpawnInLane(int lane, float y)
@@ -557,14 +561,12 @@ namespace CarGame
                 DrawCarSelection(e.Graphics);
             else
                 DrawPlayer(e.Graphics);
-
             if (!choosingCar)
                 DrawHUD(e.Graphics);
-
             if (gameOver)
                 DrawGameOver(e.Graphics);
 
-            DrawDebugInfo(e.Graphics);
+            //DrawDebugInfo(e.Graphics);
         }
 
 
@@ -715,7 +717,6 @@ namespace CarGame
 
             //SPEED
             DrawHudPanel(g, new Rectangle(10, 10, 120, 55));
-
             using (Font big = new Font("Segoe UI", 22, FontStyle.Bold))
             using (Font small = new Font("Segoe UI", 10))
             {
@@ -777,9 +778,6 @@ namespace CarGame
                     ClientSize.Width - 100,
                     70);
             }
-
-
-
         }
 
         private void DrawHudPanel(Graphics g, Rectangle rect)
@@ -805,7 +803,6 @@ namespace CarGame
 
             path.Dispose();
         }
-
 
     }
 }
